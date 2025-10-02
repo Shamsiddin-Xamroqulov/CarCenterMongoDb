@@ -183,7 +183,7 @@ class AuthController {
 
   REFRESH_TOKEN = async (req, res) => {
     try {
-      const refreshToken = req.cookie.refreshToken;
+      const refreshToken = req.cookies.refreshToken;
       if (!refreshToken) throw new ClientError("Invalid token !", 400);
       const checkToken = JwtConfig.verifyRefreshToken(refreshToken);
       if (req.headers["user-agent"] !== checkToken.userAgent)
@@ -197,7 +197,7 @@ class AuthController {
       res.json({
         message: "Access Token successfully generated !",
         status: 200,
-        token: createAccessToken,
+        accessToken: createAccessToken,
       });
     } catch (err) {
       return globalError(err, res);
